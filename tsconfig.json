@@ -12,7 +12,13 @@
         "noImplicitReturns": true,
         "moduleResolution": "nodenext",
         "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
+        "emitDecoratorMetadata": true,
+        "paths": {
+            "@/*": ["./src/*"],
+            "@lib/*": ["./src/lib/*"],
+            "@util/*": ["./src/util/*"],
+            "@types/*": ["./src/interfaces/*"]
+        }
     },
     "exclude": ["node_modules", "dist"],
     "include": ["src/**/*"]
