@@ -2,6 +2,7 @@ import {type SystemRoles, type UserRoles} from '@/interfaces/roles';
 import {hexSha512} from '@/util';
 import {EraporBase} from '@lib/eraporBase';
 import {type AxiosError} from 'axios';
+import {DashboardErapor} from './dashboard';
 
 export class Erapor extends EraporBase {
 	// eslint-disable-next-line max-params
@@ -47,5 +48,9 @@ export class Erapor extends EraporBase {
 		}
 
 		return this;
+	}
+
+	get dashboard() {
+		return new DashboardErapor(this);
 	}
 }

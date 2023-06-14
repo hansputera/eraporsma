@@ -23,3 +23,12 @@ export const readCookie = (): string | undefined => {
 		encoding: 'utf-8',
 	});
 };
+
+export const removeCookie = async (): Promise<void> => {
+	const eraporDir = path.resolve(os.homedir(), '.eraporsma');
+	const dirStat = await fs.promises.stat(eraporDir);
+
+	if (dirStat.isDirectory()) {
+		await fs.promises.rm(eraporDir, {recursive: true});
+	}
+};

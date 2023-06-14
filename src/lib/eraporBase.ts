@@ -1,3 +1,4 @@
+import {removeCookie, toDom} from '@/util';
 import axios from 'axios';
 
 export class EraporBase {
@@ -45,6 +46,16 @@ export class EraporBase {
 				// eslint-disable-next-line @typescript-eslint/naming-convention
 				Referer: this.baseUrl + '/',
 			},
+		});
+		this.$http.interceptors.response.use(async response => {
+			const $ = toDom(response.data as string);
+
+			if ($('.login-box').length) {
+				await removeCookie();
+				return Promise.reject(new Error('Invalid cookie'));
+			}
+
+			return response;
 		});
 		return this;
 	}
