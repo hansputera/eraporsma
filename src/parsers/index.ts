@@ -1,2 +1,1 @@
-export * from './dashboard/school';
-export * from './dashboard/appinfo';
+export * as DashboardParser from './dashboard';
