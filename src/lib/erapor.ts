@@ -40,7 +40,7 @@ export class Erapor extends EraporBase {
 		}
 
 		const cookie = Array.isArray(response.headers['set-cookie'])
-			? response.headers['set-cookie'].join(';') : response.headers['set-cookie'];
+			? response.headers['set-cookie'].at(1) : response.headers['set-cookie'];
 
 		if (cookie) {
 			this.setCookie(cookie);
