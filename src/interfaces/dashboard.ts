@@ -12,3 +12,12 @@ export type SchoolInfo = {
 	kepala_sekolah: string;
 	nip_kepala_sekolah: number;
 };
+
+export type AppInfo = {
+	nama_aplikasi: string;
+	versi_aplikasi: string;
+	versi_database: string;
+	kurikulum: string;
+	pedoman_penilaian: string;
+	website: string;
+};

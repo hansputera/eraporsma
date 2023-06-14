@@ -1,6 +1,6 @@
-import {type SchoolInfo} from '@/interfaces/dashboard';
+import {type AppInfo, type SchoolInfo} from '@/interfaces/dashboard';
 import {type Erapor} from '../erapor';
-import {getSchoolInfoParser} from '@/parsers';
+import {getAppInfoParser, getSchoolInfoParser} from '@/parsers';
 
 export class DashboardErapor {
 	/**
@@ -9,8 +9,11 @@ export class DashboardErapor {
      */
 	constructor(private readonly erapor: Erapor) {}
 
-	async getSchoolInfo(): Promise<SchoolInfo> {
+	async getSchoolInfo(): Promise<{school: SchoolInfo;app: AppInfo}> {
 		const response = await this.erapor.$http.get<string>('/raporsma/index.php?page=');
-		return getSchoolInfoParser(response.data);
+		return {
+			school: getSchoolInfoParser(response.data),
+			app: getAppInfoParser(response.data),
+		};
 	}
 }
