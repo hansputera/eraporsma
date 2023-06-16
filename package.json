@@ -1,8 +1,10 @@
 {
   "name": "eraporsma",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "E-Rapor SMA API Wrapper",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint \"src/**/*.ts\" --fix",
     "build": "tsup"
@@ -36,5 +38,13 @@
     "array-buffer-to-hex": "^1.0.0",
     "axios": "^1.4.0",
     "cheerio": "1.0.0-rc.12"
-  }
+  },
+  "files": [
+    "dist/index.js",
+    "dist/index.mjs",
+    "dist/index.d.ts",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ]
 }
