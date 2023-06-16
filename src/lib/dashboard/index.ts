@@ -30,4 +30,9 @@ export class DashboardErapor {
 		const response = await this.erapor.$http.get<string>('/raporsma/index.php?page=Data-User');
 		return getUsersParser(response.data);
 	}
+
+	async getAdminList(): Promise<User[]> {
+		const response = await this.erapor.$http.get<string>('/raporsma/index.php?page=Data-User-Admin');
+		return getUsersParser(response.data, true);
+	}
 }
