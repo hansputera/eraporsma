@@ -4,6 +4,13 @@ import {DashboardParser} from '@/parsers';
 import {type User} from '@/interfaces/users';
 import {getUsersParser} from '@/parsers/users';
 
+/**
+ * DashboardErapor is focused to admin purposes
+ */
+
+/**
+ * @class DashboardErapor
+ */
 export class DashboardErapor {
 	/**
      * @constructor
