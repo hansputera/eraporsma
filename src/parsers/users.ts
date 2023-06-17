@@ -16,3 +16,26 @@ export const getUsersParser = (script: string, isAdmin = false): User[] => {
 		};
 	}).toArray<User>();
 };
+
+export const getEditUserFieldParser = (script: string): User & {
+	oldPassword: string;
+} | undefined => {
+	const $ = toDom(script);
+
+	const user: User = {
+		nama: $('[name="txtNama"]').val()?.toString().trim() ?? '',
+		level: $('[name="cmbLevel"] option').attr('value') as UserRole ?? 'Siswa',
+		user: $('[name="txtUser"]').val()?.toString().trim() ?? '',
+		status: 'online',
+	};
+
+	const oldPasswordHash = $('[name="txtPassLama"]').val()?.toString() ?? '';
+
+	if (!oldPasswordHash.length || !user.nama.length) {
+		return undefined;
+	}
+
+	return Object.assign(user, {
+		oldPassword: oldPasswordHash,
+	});
+};

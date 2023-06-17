@@ -2,7 +2,7 @@ import {type AppInfo, type SchoolInfo} from '@/interfaces/dashboard';
 import {type Erapor} from '../erapor';
 import {DashboardParser} from '@/parsers';
 import {type User} from '@/interfaces/users';
-import {getUsersParser} from '@/parsers/users';
+import {getEditUserFieldParser, getUsersParser} from '@/parsers/users';
 import {getRandomString, hexSha512} from '@/util';
 
 /**
@@ -52,5 +52,35 @@ export class DashboardErapor {
 
 	async deleteAdmin(username: string): Promise<void> {
 		await this.erapor.$http.get<string>(`/raporsma/index.php?page=Admin-User-Delete&Kode=${encodeURIComponent(username)}`);
+	}
+
+	async editUser(username: string, newPassword: string): Promise<boolean> {
+		const currentResponse = await this.erapor.$http.get<string>(`/raporsma/index.php?page=Edit-User&Kode=${encodeURIComponent(username)}`);
+		let user = getEditUserFieldParser(currentResponse.data);
+
+		if (!user) {
+			return false;
+		}
+
+		const payload = new URLSearchParams({
+			txtNama: user.nama,
+			txtUser: user.user,
+			txtUserLm: user.user,
+			txtPassBaru: '',
+			txtPassLama: user.oldPassword,
+			p: await hexSha512(newPassword),
+			cmbLevel: user.level,
+		});
+		const {oldPassword} = user;
+
+		// Edit process
+		const editResponse = await this.erapor.$http.post<string>('/raporsma/index.php?page=Edit-User&Act=Save', payload);
+		user = getEditUserFieldParser(editResponse.data);
+
+		if (!user) {
+			return false;
+		}
+
+		return user.oldPassword !== oldPassword;
 	}
 }
