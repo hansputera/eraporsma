@@ -49,4 +49,8 @@ export class DashboardErapor {
 		const response = await this.erapor.$http.post<string>('/raporsma/index.php?page=Tambah-User-Admin-Simpan', payload);
 		return /alert\('Data Administrator berhasil ditambah'\)/gi.test(response.data);
 	}
+
+	async deleteAdmin(username: string): Promise<void> {
+		await this.erapor.$http.get<string>(`/raporsma/index.php?page=Admin-User-Delete&Kode=${encodeURIComponent(username)}`);
+	}
 }
