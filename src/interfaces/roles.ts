@@ -2,7 +2,7 @@ export enum UserRoles {
 	Admin 		= 'Admin',
 	Guru	 	= 'Guru',
 	WaliKelas 	= 'Wali Kelas',
-	GuruBK 		= 'BK',
+	GuruBK 		= 'BP',
 	Siswa 		= 'Siswa',
 }
 
