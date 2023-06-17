@@ -1,4 +1,4 @@
-import {type UserRole, type User} from '@/interfaces/users';
+import {type UserRole, type User, type UserOption} from '@/interfaces/users';
 import {toDom} from '@/util';
 
 export const getUsersParser = (script: string, isAdmin = false): User[] => {
@@ -38,4 +38,13 @@ export const getEditUserFieldParser = (script: string): User & {
 	return Object.assign(user, {
 		oldPassword: oldPasswordHash,
 	});
+};
+
+export const getUserListByQueryParser = (script: string): UserOption[] => {
+	const $ = toDom(script);
+
+	return $('select option').next().map((_, el) => ({
+		id: $(el).val()?.toString() ?? '',
+		value: $(el).text().trim(),
+	})).toArray<UserOption>();
 };

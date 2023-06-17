@@ -1,8 +1,9 @@
 import {type AppInfo, type SchoolInfo} from '@/interfaces/dashboard';
 import {type Erapor} from '../erapor';
 import {DashboardParser} from '@/parsers';
-import {type User} from '@/interfaces/users';
-import {getEditUserFieldParser, getUsersParser} from '@/parsers/users';
+import {type UserOption, type User} from '@/interfaces/users';
+import {type UserRoles} from '@/interfaces/roles';
+import {getEditUserFieldParser, getUserListByQueryParser, getUsersParser} from '@/parsers/users';
 import {getRandomString, hexSha512} from '@/util';
 
 /**
@@ -27,12 +28,12 @@ export class DashboardErapor {
 		};
 	}
 
-	async getUsers(): Promise<User[]> {
+	async fetchUsers(): Promise<User[]> {
 		const response = await this.erapor.$http.get<string>('/raporsma/index.php?page=Data-User');
 		return getUsersParser(response.data);
 	}
 
-	async getAdminList(): Promise<User[]> {
+	async fetchAdminList(): Promise<User[]> {
 		const response = await this.erapor.$http.get<string>('/raporsma/index.php?page=Data-User-Admin');
 		return getUsersParser(response.data, true);
 	}
@@ -82,5 +83,10 @@ export class DashboardErapor {
 		}
 
 		return user.oldPassword !== oldPassword;
+	}
+
+	async fetchUsersByQuery(query: Omit<UserRoles, 'Admin'>): Promise<UserOption[]> {
+		const response = await this.erapor.$http.get<string>(`/raporsma/modul/cari_data/cari_user_add_kelas.php?quser=${encodeURIComponent(query.toString())}`);
+		return getUserListByQueryParser(response.data);
 	}
 }

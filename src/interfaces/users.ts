@@ -6,3 +6,8 @@ export type User = {
 	level: UserRole;
 	status: string;
 };
+
+export type UserOption = {
+	id: string;
+	value: string;
+};
