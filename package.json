@@ -34,8 +34,6 @@
     "typescript": "^5.1.3"
   },
   "dependencies": {
-    "@stablelib/sha512": "^1.0.1",
-    "array-buffer-to-hex": "^1.0.0",
     "axios": "^1.4.0",
     "cheerio": "1.0.0-rc.12"
   },
