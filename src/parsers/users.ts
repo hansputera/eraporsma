@@ -1,6 +1,16 @@
 import {type UserRole, type User, type UserOption} from '@/interfaces/users';
 import {toDom} from '@/util';
 
+export const getProfileParser = (script: string): {name: string; role: UserRole} => {
+	const $ = toDom(script)('.user-panel .pull-left').eq(1);
+	const name = $.find('p').text().trim();
+
+	return {
+		name,
+		role: $.text().replace(name, '').trim() as UserRole,
+	};
+};
+
 export const getUsersParser = (script: string, isAdmin = false): User[] => {
 	const $ = toDom(script);
 
